@@ -16,6 +16,7 @@ using Microsoft.AspNetCore.HttpOverrides;
 using System.IO;
 using NLog;
 using Contracts;
+using CodeMazeWebApi.ActionFilters;
 
 namespace CodeMazeWebApi
 {
@@ -38,6 +39,9 @@ namespace CodeMazeWebApi
             services.ConfigureSqlContext(Configuration);
             services.ConfigureRepositoryManager();
             services.AddAutoMapper(typeof(Startup));
+            services.AddScoped<ValidationFilterAttribute>();
+            services.AddScoped<ValidateCompanyExistsAttribute>();
+            services.AddScoped<ValidateEmployeeForCompanyExistsAttribute>();
 
             services.AddControllers(config =>
             {
